@@ -263,6 +263,12 @@
   <script>
     var map = L.map('map').setView([13.732651122223231, 100.6011199951172], 10);
 
+    /* define car crashing icon */
+    var car_crash = L.icon({
+      iconUrl: 'assets/icon/car-crash.png',
+      iconSize: [38, 40],
+    });
+
     // import bangkok district geojson file
     var district_geojson = null;
     $.ajax({
@@ -356,7 +362,7 @@
           var date_time_data = new Date(json[i]['start'].split(' ')[0])
           if (start_date_time_f < date_time_data && end_date_time_f > date_time_data) {
             var point_latlng = new L.latLng(json[i]['latitude'], json[i]['longitude']);
-            markers.addLayer(L.marker(point_latlng))
+            markers.addLayer(L.marker(point_latlng, {icon: car_crash}))
           }
         }
         map.addLayer(markers)
@@ -627,7 +633,7 @@
       }
     }
 
-  
+
     /* time period default */
     document.getElementById("start_date").value = "1/1/2020";
     document.getElementById("to_end_date").value = "1/3/2020";
